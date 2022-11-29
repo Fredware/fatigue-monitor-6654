@@ -44,15 +44,17 @@ function [fig_handle, line_handles, t_max, t_min] = initialize_figure(n_chans, n
         xlim([0 t_max])
         ylabel(y_labels{i})
         xticks([]);
-        
+        if i <= n_chans
+            ylim(axes_handles{i}, [-2.6 2.6])
+        end
     end
     linkaxes([axes_handles{:}],'x')
     xlabel('Time [s]')
 
-    ylim(axes_handles{1}, [-2.5 2.5])
-    ylim(axes_handles{2}, [-0.1 2.0])
-    ylim(axes_handles{3}, [-0.1 2.0])
-    ylim(axes_handles{4}, [-0.1, 1.1])
-    ylim(axes_handles{5}, [0 300])
-    ylim(axes_handles{6}, [0 300])
+    
+    ylim(axes_handles{7}, [-0.1 2.0])
+    ylim(axes_handles{8}, [-0.1 2.0])
+    ylim(axes_handles{9}, [-0.1, 1.1])
+    ylim(axes_handles{10}, [0 300])
+    ylim(axes_handles{11}, [0 300])
 end

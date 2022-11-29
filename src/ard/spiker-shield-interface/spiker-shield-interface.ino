@@ -1,9 +1,12 @@
 #define SAMPLING_PERIOD 1000 // microseconds = 1kHz sampling freq
 #define SERIAL_PLOTTER_ENABLED 0
+#define SIZE_INT 4 //bytes
+#define N_CHANS 6
+#define SIZE_SPACE 1 //bytes
 
-int musclePin[] = {A1};   // Arduino input locations (A2 and A1 are the inputs for the EMG shield)
+int musclePin[] = {A0, A1, A2, A3, A4, A5};   // Arduino input locations (A2 and A1 are the inputs for the EMG shield)
 
-char print_buff[5];    // allocate space for reading voltages
+char print_buff[N_CHANS * (SIZE_INT + SIZE_SPACE)];    // allocate space for reading voltages
 
 void setup()
 {
@@ -19,8 +22,13 @@ void loop()
   // string must match in matlab code
   // use one %d per channel separated by a space
   sprintf( print_buff,
-           "%d",           
-           analogRead( musclePin[0])
+           "%d %d %d %d %d %d",           
+           analogRead( musclePin[0]),
+           analogRead( musclePin[1]),
+           analogRead( musclePin[2]),
+           analogRead( musclePin[3]),
+           analogRead( musclePin[4]),
+           analogRead( musclePin[5])        
   );
   if (SERIAL_PLOTTER_ENABLED)
   {

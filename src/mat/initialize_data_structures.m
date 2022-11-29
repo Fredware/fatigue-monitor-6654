@@ -1,4 +1,4 @@
-function [data, features, data_idx, features_idx, prev_sample, prev_timestamp] = initialize_data_structures(buff_size, n_feats)
+function [data, features, data_idx, features_idx, prev_sample, prev_timestamp] = initialize_data_structures(buff_size, n_chans, n_feats)
 % this function initializes all the variables needed to store the data
 % input from the Arduino, and to alter it to control the virtual hand. 
 % 
@@ -22,7 +22,7 @@ function [data, features, data_idx, features_idx, prev_sample, prev_timestamp] =
 % previousTimeStamp is used to limit the rate of control if a delay is
 % used. 
 
-data = NaN(1, buff_size);
+data = NaN(n_chans, buff_size);
 features = NaN(n_feats, buff_size);
 data_idx = 1;
 features_idx = 0;

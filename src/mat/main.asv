@@ -101,13 +101,13 @@ data_table =  renamevars(data_table, "Var1", "sEMG");
 
 features_table = timetable((features(:, 1:length(t_features)))','RowTimes', seconds(t_features'));
 features_table = splitvars(features_table);
-features_table = renamevars(features_table, ["Var1_1", "Var1_2", "Var1_3", "Var1_4", "Var1_5"], ["Cue", "MAV", "RMS", "Mean Frequency", "Median Frequency"]);
+features_table = renamevars(features_table, ["Var1_1", "Var1_2", "Var1_3", "Var1_4", "Var1_5"], ["MAV", "RMS", "Cue", "Mean Frequency", "Median Frequency"]);
 features_table = rmmissing(features_table);
 
 full_table = synchronize(data_table, features_table, 'union', 'linear');
 
 subplot(3,1,1)
-scaling_factor = max(abs(full_table.sEMG), [], 'all');
+scaling_factor = abs(max(full_table.sEMG, [], 'all'));
 
 plot(full_table.Time, full_table.sEMG)
 hold on
@@ -120,12 +120,12 @@ grid on
 
 subplot(3,1,2)
 scaling_factor = max(full_table.RMS);
-plot(full_table.Time, full_table{:, 3:4})
+plot(full_table.Time, full_table{:, 2:3})
 hold on
 plot(full_table.Time, scaling_factor*full_table.Cue, 'r--')
 hold off
 
-legend([ full_table.Properties.VariableNames(3:4), "Cue"])
+legend([full_table.Properties.VariableNames(2:3), "Cue"])
 ylim([-0.1*scaling_factor 1.1*scaling_factor])
 grid on
 

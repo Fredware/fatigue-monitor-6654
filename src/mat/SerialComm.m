@@ -11,6 +11,10 @@ classdef SerialComm < handle
     %
     % Version: 20210222
     % Author: Tyler Davis
+    %
+    % Modified On: 20221129
+    % Author: Fredi Mino
+    
     
     properties
         ARD; 
@@ -38,7 +42,7 @@ classdef SerialComm < handle
 
             n_samples = 50000;
             
-            obj.Data_Buffer = zeros(n_chans, n_samples);
+            obj.Data_Buffer = zeros(cell2mat(n_chans), n_samples);
             
             obj.Status.ElapsedTime = nan;
             obj.Status.CurrTime = clock;
@@ -90,7 +94,7 @@ classdef SerialComm < handle
         function read( obj, varargin)
             try
                 % read data & update status
-                obj.Status.Data = sscanf( readline( obj.ARD), '%d');
+                obj.Status.Data = sscanf( readline( obj.ARD), '%d %d %d %d %d %d');
                 obj.Status.CurrTime = clock;
                 obj.Status.ElapsedTime = etime( obj.Status.CurrTime, obj.Status.LastTime);
                 obj.Status.LastTime = obj.Status.CurrTime;

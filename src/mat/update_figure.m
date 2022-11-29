@@ -1,4 +1,4 @@
-function [t_max, t_min] = update_figure(animatedLines, timestamp, data, features, prev_samp, data_idx, feature_idx, t_max, t_min)
+function [t_max, t_min] = update_figure(animatedLines, timestamp, data, features, prev_samp, data_idx, feature_idx, t_max, t_min, n_chans)
 % [Tmax, Tmin] = updatePlot1ch(animatedLines, timeStamp, data, control, prevSamp, dataindex, controlindex, Tmax, Tmin)
 
 % updatePlot1ch updates the plots for the EMG data and control
@@ -23,11 +23,11 @@ function [t_max, t_min] = update_figure(animatedLines, timestamp, data, features
 % Tmin is the lower xlimit of the graphs. updated similarly to Tmax as
 % timeStamp increases passed Tmax
     for i = 1:length(animatedLines)
-        if i <= 1
+        if i <= n_chans
             addpoints(animatedLines{i}, timestamp, max( data(i, prev_samp:data_idx-1)));
             addpoints(animatedLines{i}, timestamp, min( data(i, prev_samp:data_idx-1)));
         else
-            addpoints(animatedLines{i}, timestamp, features(i-1, feature_idx));
+            addpoints(animatedLines{i}, timestamp, features(i-n_chans, feature_idx));
         end
     end
     if timestamp > t_max

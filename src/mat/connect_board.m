@@ -8,7 +8,7 @@ function [board, connected] = connect_board(varargin)
 try
     % SET UP ARDUINO COMMUNICATION
     if nargin
-        SerialComm(varargin);
+        board = SerialComm(varargin);
     else
         board = SerialComm(); %setup connection to arduino
     end
